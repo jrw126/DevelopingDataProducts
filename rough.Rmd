@@ -1,0 +1,68 @@
+---
+title: "Developing Data Products"
+author: "John Wright"
+date: "Tuesday, January 06, 2015"
+output: html_document
+---
+
+# Load Data
+```{r}
+library(ggmap)
+library(manipulate)
+library(jsonlite)
+
+# Generate the blank map
+map.center <- geocode("San Francisco, CA")
+sfmap <- qmap(c(lon = map.center$lon, lat = map.center$lat), source = "google", zoom = 12)
+
+# Read the data
+data <- read.csv("Mobile_Food_Schedule.csv") # Change to hit the API
+
+# Tidy up the data
+data <- data[, c("start24", "end24", "Applicant", "Latitude", "Longitude")]
+data <- data[!duplicated(data), ]
+
+# Convert start and end time variables to integers
+idx <- grep("24", names(data))
+data[, idx] <- lapply(data[, idx], function(x) as.integer(substr(as.character(x), 1, 2)))
+
+# Plot the points on the map
+myPlot <- function(Hour) {
+      plotData <- data[data$start24 <= Hour & data$end24 >= Hour, ]
+      sfmap + geom_point(
+      aes(x = Longitude, 
+          y = Latitude, 
+          colour = Applicant, 
+          size = 5, 
+          alpha = .5), 
+      data = plotData) +
+      theme(legend.position = "") +
+      ggtitle(expression(atop(bold("San Francisco Food Truck Availability"), 
+                         atop(italic("Use the slider to see what's open when you're hungry"), ""))))
+}
+manipulate(myPlot(Hour), Hour = slider(0, 24, step = 1))
+
+```
+
+```{r}
+#orig / snippets
+
+# Get the data
+url <- "https://data.sfgov.org/Economy-and-Community/Mobile-Food-Schedule/jjew-r69b"
+
+# Retrieve the data from the API
+data <- fromJSON(text_content(GET("https://data.sfgov.org/resource/jjew-r69b.json")))
+
+# Convert start and end time variables to "times" class.
+library(chron)
+data[, 11:12] <- lapply(data[, 11:12], function(x) times(format(as.POSIXlt(strptime(x, "%H:%M")), "%H:%M:%S")))
+
+sfmap + geom_point(
+      aes(x = Longitude, 
+          y = Latitude, 
+          colour = Applicant, 
+          size = 5, 
+          alpha = .5), 
+      data = data) +
+      theme(legend.position = "")
+```
