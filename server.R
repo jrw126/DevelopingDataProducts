@@ -1,15 +1,13 @@
 
 library(shiny)
 library(ggmap)
-library(manipulate)
-library(jsonlite)
 
 # Generate the blank map
 map.center <- geocode("San Francisco, CA")
 sfmap <- qmap(c(lon = map.center$lon, lat = map.center$lat), source = "google", zoom = 12)
 
 # Read the data
-data <- read.csv("D:\\Coursera\\Developing Data Products\\DevelopingDataProducts\\foodTruckData_clean.csv") # Change to hit the API
+data <- read.csv("foodTruckData_clean.csv") # Change to hit the API
 
 # Define server logic required to generate and plot the data on the map.
 shinyServer(function(input, output) {
@@ -25,7 +23,7 @@ shinyServer(function(input, output) {
                   aes(x = Longitude,
                       y = Latitude,
                       colour = Applicant,
-                      size = 5,
+                      size = 10,
                       alpha = .5),
                   data = plotData()) +
                   theme(legend.position = "") +
@@ -36,3 +34,4 @@ shinyServer(function(input, output) {
             })
             
       })
+
