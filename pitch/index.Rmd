@@ -1,0 +1,43 @@
+---
+title       : 
+subtitle    : 
+author      : 
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Read-And-Delete
+
+1. Edit YAML front matter
+2. Write using R Markdown
+3. Use an empty line followed by three dashes to separate slides!
+
+--- .class #id 
+
+## Introduction
+
+Ever been hungry? But not for antiquated brick-and-mortar restaurant "food"? Do you live in the internet capitol of the world, San Francisco?
+
+If so, prepare to be dazzled and sated.
+
+---
+
+## Solution to Your Problem(s)
+
+With this one-of-a-kind app, you can enter the hour of the day that hunger strikes and know exactly where available food trucks in San Francisco are located.
+
+---
+
+## README
+
+But how does it work you ask? SIMPLE!
+
+Just slide the slider to the hour of hunger and watch the map fill with a myriad of meal choices.
+
+---
+

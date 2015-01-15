@@ -14,8 +14,7 @@ shinyUI(pageWithSidebar(
                         "When are you hungry?",
                         min = 0,
                         max = 23,
-                        value = 0,
-                        format = "## :00")
+                        value = 0)
             ),
       
       # Show a plot of the food trucks that are available at that time and their locations
