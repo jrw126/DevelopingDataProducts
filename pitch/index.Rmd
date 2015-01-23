@@ -29,7 +29,7 @@ If so, prepare to be dazzled and sated.
 
 ## Solution to Your Problem(s)
 
-With this one-of-a-kind app, you can enter the hour of the day that hunger strikes and know exactly where available food trucks in San Francisco are located.
+With this one-of-a-kind app, you can enter the hour of the day that hunger strikes and know exactly where available food trucks in San Francisco are located. Which hours you ask? Any of these: ```{r} 0:23```
 
 ---
 
